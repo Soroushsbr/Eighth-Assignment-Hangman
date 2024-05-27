@@ -10,8 +10,8 @@ import java.io.IOException;
 public class HangmanApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HangmanApp.class.getResource("hangman-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(HangmanApp.class.getResource("Menu.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hangman");
         stage.setScene(scene);
         stage.show();
@@ -20,4 +20,5 @@ public class HangmanApp extends Application {
     public static void main(String[] args) {
         launch();
     }
+
 }
