@@ -23,16 +23,14 @@ import java.util.Arrays;
 public class HangmanController {
     private String diff;
     private String name;
-    private ArrayList<String> words;
+    private ArrayList<String> words = new ArrayList<>();
     private ArrayList<String> guessed = new ArrayList<>();
     private String word;
     private int HP;
-    public void set(String diff , String name){
-        this.diff =diff;
+    public void set(String word , String name){
+        this.word = word.toUpperCase();
         this.name =name;
         this.HP = 10;
-        word = "water";
-        word = word.toUpperCase();
         String[] temp = word.split("\\s+");
         words = new ArrayList<>(Arrays.asList(temp));
         setWords();
@@ -40,20 +38,31 @@ public class HangmanController {
     @FXML
     VBox vBox;
     @FXML
-    HBox hBox;
+    HBox hBoxtop;
+    @FXML
+    HBox hBoxBottom;
     public void setWords(){
         try {
             vBox.getChildren().clear();
-            hBox.getChildren().clear();
+            hBoxtop.getChildren().clear();
+            hBoxBottom.getChildren().clear();
             for (int i = 0; i < word.length(); i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("WordBox.fxml"));
                 AnchorPane wordPane = loader.load();
-                if(guessed.contains(String.valueOf(word.charAt(i)))) {
-                    ((Label) wordPane.getChildren().get(0)).setText(String.valueOf(word.charAt(i)));
+                if( i < 6){
+                    if(guessed.contains(String.valueOf(word.charAt(i)))) {
+                        ((Label) wordPane.getChildren().get(0)).setText(String.valueOf(word.charAt(i)));
+                    }
+                    hBoxtop.getChildren().add(wordPane);
+                }else{
+                    if(guessed.contains(String.valueOf(word.charAt(i)))) {
+                        ((Label) wordPane.getChildren().get(0)).setText(String.valueOf(word.charAt(i)));
+                    }
+                    hBoxBottom.getChildren().add(wordPane);
                 }
-                hBox.getChildren().add(wordPane);
             }
-            vBox.getChildren().add(hBox);
+            vBox.getChildren().add(hBoxtop);
+            vBox.getChildren().add(hBoxBottom);
         }catch (IOException ignored){
         }
     }
@@ -63,61 +72,78 @@ public class HangmanController {
         String guess = wordField.getText().toUpperCase();
         if(word.contains(guess)){
             vBox.getChildren().clear();
-            hBox.getChildren().clear();
+            hBoxtop.getChildren().clear();
+            hBoxBottom.getChildren().clear();
             if(!guessed.contains(guess)) {
                 guessed.add(guess);
+                setLetters();
             }
             wordField.clear();
             setWords();
         }else {
             wordField.clear();
-            switch (HP){
-                case 10:
-                    animeYwood();
-                    HP--;
-                    break;
-                case 9:
-                   animeXwood();
-                   HP--;
-                   break;
-                case 8:
-                    animeSideWood();
-                    HP--;
-                    break;
-                case 7:
-                    animeRope();
-                    HP--;
-                    break;
-                case 6:
-                    animeHead();
-                    HP--;
-                    break;
-                case 5:
-                    animeBody();
-                    HP--;
-                    break;
-                case 4:
-                    animeRightH();
-                    HP--;
-                    break;
-                case 3:
-                    animeLeftH();
-                    HP--;
-                    break;
-                case 2:
-                    animeRightL();
-                    HP--;
-                    break;
-                case 1:
-                    animeLeftL();
-                    HP--;
-                    break;
-                default:
-                    break;
+            if(!guessed.contains(guess)) {
+                guessed.add(guess);
+                setLetters();
+                switch (HP){
+                    case 10:
+                        animeYwood();
+                        HP--;
+                        break;
+                    case 9:
+                       animeXwood();
+                       HP--;
+                       break;
+                    case 8:
+                        animeSideWood();
+                        HP--;
+                        break;
+                    case 7:
+                        animeRope();
+                        HP--;
+                        break;
+                    case 6:
+                        animeHead();
+                        HP--;
+                        break;
+                    case 5:
+                        animeBody();
+                        HP--;
+                        break;
+                    case 4:
+                        animeRightH();
+                        HP--;
+                        break;
+                    case 3:
+                        animeLeftH();
+                        HP--;
+                        break;
+                    case 2:
+                        animeRightL();
+                        HP--;
+                        break;
+                    case 1:
+                        animeLeftL();
+                        HP--;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
+    @FXML
+    Label guessLabel;
+    public void setLetters(){
+        String guesses ="";
+        for(String guess : guessed){
+            guesses = guesses + " " + guess + " ";
+        }
+        guessLabel.setText(guesses);
+    }
 
+
+    //--------------------------------animation----------------------------------
     @FXML
     Line Ywood;
     public void animeYwood(){
@@ -249,4 +275,5 @@ public class HangmanController {
         );
         timelineY.play();
     }
+    //--------------------------------animation----------------------------------
 }

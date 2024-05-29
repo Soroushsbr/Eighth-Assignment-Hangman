@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="753.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hangman.HangmanController">
    <children>
@@ -15,11 +17,11 @@
       <Line fx:id="Xwood" endX="-55.0" layoutX="210.0" layoutY="42.0" startX="-55.0" strokeWidth="6.0" visible="false" />
       <Line fx:id="Ywood" endX="-68.0" endY="415.0" layoutX="221.0" layoutY="52.0" startX="-68.0" startY="415.0" strokeWidth="6.0" visible="false" />
       <Line fx:id="sideWood" endX="-65.0" endY="60.0" layoutX="221.0" layoutY="52.0" startX="-65.0" startY="60.0" strokeWidth="6.0" visible="false" />
-      <Line endX="426.0" layoutX="100.0" layoutY="470.0" startX="-100.0" />
+      <Line endX="426.0" layoutX="100.0" layoutY="470.0" startX="-100.0" strokeWidth="2.0" />
       <VBox fx:id="vBox" layoutY="471.0" prefHeight="204.0" prefWidth="527.0">
          <children>
-            <HBox fx:id="hBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hBoxtop" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hBoxBottom" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
          </children>
       </VBox>
       <TextField fx:id="wordField" layoutX="245.0" layoutY="675.0" onKeyTyped="#selectAWord" opacity="0.0" prefHeight="39.0" prefWidth="37.0" style="-fx-background-radius: 10;" />
@@ -27,5 +29,19 @@
       <Line fx:id="leftH" endX="100.0" layoutX="212.0" layoutY="206.0" startX="100.0" strokeWidth="3.0" visible="false" />
       <Line fx:id="rightL" endX="-100.0" layoutX="415.0" layoutY="315.0" startX="-100.0" strokeWidth="3.0" visible="false" />
       <Line fx:id="leftL" endX="100.0" layoutX="211.0" layoutY="314.0" startX="100.0" strokeWidth="3.0" visible="false" />
+      <Pane layoutX="9.0" layoutY="681.0" prefHeight="66.0" prefWidth="509.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+         <children>
+            <Label fx:id="guessLabel" alignment="CENTER" layoutX="20.0" layoutY="7.0" prefHeight="59.0" prefWidth="470.0" textAlignment="CENTER" textFill="#a10000" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="217.0" layoutY="671.0" style="-fx-background-color: white;" text="Used Letters:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

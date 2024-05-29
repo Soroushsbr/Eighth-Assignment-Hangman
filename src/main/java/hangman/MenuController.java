@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MenuController {
-    private String[] words = {"Water" , "Fire" , "Test"};
     @FXML
     Rectangle backgroundChoseDiff;
     @FXML
@@ -42,8 +42,11 @@ public class MenuController {
     Parent root;
     @FXML
     TextField nameField;
-    public void easyDiff(ActionEvent event) throws IOException {
-        if(nameField.getText() != null) {
+    public void animalBtn(ActionEvent event) throws IOException {
+        if(!Objects.equals(nameField.getText(), "")) {
+            RandWord randWord = new RandWord();
+            System.out.println(nameField.getText());
+            String rand = randWord.getWord("animals");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hangman-view.fxml"));
             root = loader.load();
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -51,12 +54,14 @@ public class MenuController {
             stage.setScene(scene);
             stage.show();
             HangmanController hangmanController = loader.getController();
-            hangmanController.set("Easy" , nameField.getText());
+            hangmanController.set(rand , nameField.getText());
         }
     }
 
-    public void medDiff(ActionEvent event) throws IOException {
-        if(nameField.getText() != null) {
+    public void colorBtn(ActionEvent event) throws IOException {
+        if(!Objects.equals(nameField.getText(), "")) {
+            RandWord randWord = new RandWord();
+            String rand = randWord.getWord("colors");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hangman-view.fxml"));
             root = loader.load();
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -64,12 +69,14 @@ public class MenuController {
             stage.setScene(scene);
             stage.show();
             HangmanController hangmanController = loader.getController();
-            hangmanController.set("Medium" , nameField.getText());
+            hangmanController.set(rand , nameField.getText());
         }
     }
 
-    public void hardDiff(ActionEvent event) throws IOException {
-        if(nameField.getText() != null) {
+    public void foodBtn(ActionEvent event) throws IOException {
+        if(!Objects.equals(nameField.getText(), "")) {
+            RandWord randWord = new RandWord();
+            String rand = randWord.getWord("foods");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hangman-view.fxml"));
             root = loader.load();
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -77,7 +84,38 @@ public class MenuController {
             stage.setScene(scene);
             stage.show();
             HangmanController hangmanController = loader.getController();
-            hangmanController.set("Hard" , nameField.getText());
+            hangmanController.set(rand , nameField.getText());
+        }
+    }
+
+    public void clothesBtn(ActionEvent event) throws IOException {
+        if(!Objects.equals(nameField.getText(), "")) {
+            RandWord randWord = new RandWord();
+            String rand = randWord.getWord("clothes");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("hangman-view.fxml"));
+            root = loader.load();
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            HangmanController hangmanController = loader.getController();
+            hangmanController.set(rand , nameField.getText());
+        }
+    }
+
+    public void randomBtn(ActionEvent event) throws IOException {
+        if(!Objects.equals(nameField.getText(), "")) {
+            RandWord randWord = new RandWord();
+            String rand = randWord.giveWord();
+            System.out.println(rand);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("hangman-view.fxml"));
+            root = loader.load();
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            HangmanController hangmanController = loader.getController();
+            hangmanController.set(rand , nameField.getText());
         }
     }
 }
