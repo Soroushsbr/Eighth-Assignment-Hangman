@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="426.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hangman.LoginMenu">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="427.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="664.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startY="0.5545023696682464">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.028143275529146194" green="0.2991288900375366" blue="0.5526315569877625" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.08053691275167785">
+                     <color>
+                        <Color red="0.028143275529146194" green="0.2991288900375366" blue="0.5526315569877625" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.4743820592568342">
+                     <color>
+                        <Color red="0.3832845985889435" green="0.5387629866600037" blue="0.6842105388641357" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.9563758389261745">
+                     <color>
+                        <Color red="0.45370370149612427" green="0.9362654089927673" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.45370370149612427" green="0.9362654089927673" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <TextField fx:id="logUser" layoutX="60.0" layoutY="124.0" prefHeight="14.0" prefWidth="210.0" promptText="SoroushTheGod..." style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 20;" />
+      <PasswordField fx:id="logPass" layoutX="60.0" layoutY="216.0" prefHeight="16.0" prefWidth="210.0" promptText="1234568..." style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 20;" />
+      <Button layoutX="140.0" layoutY="284.0" mnemonicParsing="false" onAction="#login" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 10;" text="Log in" textFill="WHITE" />
+      <Label layoutX="60.0" layoutY="94.0" text="Username:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="189.0" text="Password:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="signUser" layoutX="355.0" layoutY="125.0" prefHeight="14.0" prefWidth="210.0" promptText="SoroushTheGod..." style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 20;" />
+      <TextField fx:id="signName" layoutX="355.0" layoutY="184.0" prefHeight="14.0" prefWidth="210.0" promptText="SoroushTheGod..." style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 20;" />
+      <Button layoutX="435.0" layoutY="298.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 10;" text="Sign up" textFill="WHITE" />
+      <Label layoutX="355.0" layoutY="96.0" text="Username:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="355.0" layoutY="160.0" text="Name: " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="355.0" layoutY="220.0" text="Password:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="signPass" layoutX="355.0" layoutY="244.0" prefHeight="16.0" prefWidth="210.0" promptText="1234568..." style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 20;" />
+      <Pane fx:id="switchPane" layoutX="322.0" prefHeight="427.0" prefWidth="342.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="427.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="342.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.42517855763435364" green="0.12999999523162842" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.7314814925193787" green="0.7851851582527161" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Hyperlink fx:id="switchLink" alignment="CENTER" contentDisplay="CENTER" layoutX="136.0" layoutY="197.0" onAction="#switchScene" text="Sign up" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Hyperlink>
+            <Label layoutX="121.0" layoutY="55.0" text="Hangman" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="86.0" layoutY="101.0" text="An indie Game by Soroushsbr" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

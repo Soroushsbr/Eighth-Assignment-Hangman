@@ -3,8 +3,13 @@ package hangman;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -12,27 +17,37 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class HangmanController {
-    private String diff;
-    private String name;
-    private ArrayList<String> words = new ArrayList<>();
+public class HangmanController extends Application {
     private ArrayList<String> guessed = new ArrayList<>();
     private String word;
     private int HP;
-    public void set(String word , String name){
+    private int rightGuesses = 0;
+    private Game game = new Game();
+    private String name;
+    private Thread thread;
+    private ExecutorService pool = Executors.newFixedThreadPool(1);
+    private Account account;
+    @FXML
+    Label timeLabel;
+    public void set(String word , Account account){
         this.word = word.toUpperCase();
-        this.name =name;
+        this.name = account.getUsername();
+        this.account = account;
         this.HP = 10;
-        String[] temp = word.split("\\s+");
-        words = new ArrayList<>(Arrays.asList(temp));
+        TimeCal timeCal = new TimeCal(timeLabel);
+//        thread.interrupt();
+//        thread = new Thread(timeCal);
+//        thread.start();
+        pool.execute(timeCal);
         setWords();
     }
     @FXML
@@ -68,22 +83,34 @@ public class HangmanController {
     }
     @FXML
     TextField wordField;
+    @FXML
+    Label scoreLabel;
+    private int score = 0;
     public void selectAWord(){
         String guess = wordField.getText().toUpperCase();
+        char[] ch = guess.toCharArray();
+        //user only can type letters
+        boolean match = (ch[0] >= 'A' && ch[0] <= 'Z');
         if(word.contains(guess)){
+            scoreLabel.setText(String.valueOf(score));
             vBox.getChildren().clear();
             hBoxtop.getChildren().clear();
             hBoxBottom.getChildren().clear();
-            if(!guessed.contains(guess)) {
+            if(!guessed.contains(guess) && match) {
+                rightGuesses++;
                 guessed.add(guess);
                 setLetters();
+                score += 100;
             }
             wordField.clear();
+            winChecker();
             setWords();
         }else {
             wordField.clear();
-            if(!guessed.contains(guess)) {
+            if(!guessed.contains(guess) && match) {
                 guessed.add(guess);
+                score -= 10;
+                scoreLabel.setText(String.valueOf(score));
                 setLetters();
                 switch (HP){
                     case 10:
@@ -125,6 +152,7 @@ public class HangmanController {
                     case 1:
                         animeLeftL();
                         HP--;
+                        statue(false);
                         break;
                     default:
                         break;
@@ -132,12 +160,80 @@ public class HangmanController {
             }
         }
     }
+
+    public void winChecker(){
+        boolean flag = true;
+        char[] letters = word.toCharArray();
+        for(char letter : letters){
+            if(!guessed.contains(String.valueOf(letter))){
+                flag = false;
+            }
+        }
+        if(flag){
+            statue(true);
+        }
+    }
+
+    @FXML
+    Pane statuePane;
+    @FXML
+    Label stateLabel;
+    @FXML
+    Label stateWord;
+    @FXML
+    Label stateTime;
+    @FXML
+    Rectangle background;
+    public void statue(boolean state){
+        pool.shutdown();
+        if(state) {
+            stateLabel.setText("YOU WON");
+        }else{
+            stateLabel.setText("YOU LOST");
+        }
+
+        //set game info
+        game.setUsername(name);
+        game.setTime(timeLabel.getText());
+        game.setWord(word);
+        game.setWrongGuesses(guessed.size() - rightGuesses);
+        game.setWin(state);
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.insertGame(game);
+
+        //set labels
+        stateWord.setText(word);
+        stateTime.setText(timeLabel.getText());
+        background.setVisible(true);
+        statuePane.setVisible(true);
+    }
+
+    public void getBackToMenu(ActionEvent event) throws IOException {
+        Stage stage;
+        Scene scene;
+        Parent root;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        root = loader.load();
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+        MenuController menuController = loader.getController();
+        menuController.set(account);
+    }
     @FXML
     Label guessLabel;
     public void setLetters(){
         String guesses ="";
+        int i = 0;
         for(String guess : guessed){
             guesses = guesses + " " + guess + " ";
+            i++;
+            if(i == 30){
+                guesses = guesses + "\n";
+            }
         }
         guessLabel.setText(guesses);
     }
@@ -274,6 +370,15 @@ public class HangmanController {
                 new KeyFrame(Duration.seconds(0.5), new KeyValue(leftL.endYProperty(), 50 ))
         );
         timelineY.play();
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+    }
+
+    @Override
+    public void stop() throws Exception {
     }
     //--------------------------------animation----------------------------------
 }
