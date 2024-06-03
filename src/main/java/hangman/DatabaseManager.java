@@ -7,32 +7,74 @@ import java.util.ArrayList;
 
 public class DatabaseManager {
 
-    public void newAccount(Account account) {
+    public boolean verify(Account account){
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://localhost:5432/Hangman";
-            String username = "postgres";
-            String password = "1383";
+            String sqlUsername = "postgres";
+            String sqlPassword = "1383";
             //connect to server
-            Connection connection = DriverManager.getConnection(url, username, password);
-            String query = "INSERT INTO public.\"UserInfo\"(\"Username\", \"Name\", \"Password\") VALUES (?, ?, ?);";
+            Connection connection = DriverManager.getConnection(url, sqlUsername, sqlPassword);
+            String query = "SELECT * FROM \"UserInfo\" WHERE \"Username\" = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1 , account.getUsername());
-            statement.setString(2 , account.getName());
-            statement.setString(3, account.getPassword());
-            statement.executeUpdate();
-            connection.setAutoCommit(false);
-            connection.commit();
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                //username exist
+                connection.setAutoCommit(false);
+                connection.commit();
+                // Close resources
+                statement.close();
+                connection.close();
+                return false;
+            }else {
+                connection.setAutoCommit(false);
+                connection.commit();
+                // Close resources
+                statement.close();
+                connection.close();
+                return true;
+            }
 
-            // Close resources
-            statement.close();
-            connection.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return true;
+    }
+
+    public boolean newAccount(Account account) {
+        try {
+            Class.forName("org.postgresql.Driver");
+            String url = "jdbc:postgresql://localhost:5432/Hangman";
+            String username = "postgres";
+            String password = "1383";
+            if(verify(account)) {
+                //connect to server
+                Connection connection = DriverManager.getConnection(url, username, password);
+                String query = "INSERT INTO public.\"UserInfo\"(\"Username\", \"Name\", \"Password\") VALUES (?, ?, ?);";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, account.getUsername());
+                statement.setString(2, account.getName());
+                statement.setString(3, account.getPassword());
+                statement.executeUpdate();
+                connection.setAutoCommit(false);
+                connection.commit();
+
+                // Close resources
+                statement.close();
+                connection.close();
+                return true;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 
     public Account verifyAcc(String username , String password){

@@ -16,7 +16,7 @@ public class TimeCal implements Runnable {
     @Override
     public void run() {
         sec = 0;
-        while (true){
+        while (!Thread.currentThread().isInterrupted()){
             sec++;
             try {
                 sleep(1000);
@@ -32,6 +32,8 @@ public class TimeCal implements Runnable {
                 });
             } catch (InterruptedException e) {
                 System.out.println("Time Stopped");
+                //when the game end the thread should be terminated
+                break;
             }
         }
     }

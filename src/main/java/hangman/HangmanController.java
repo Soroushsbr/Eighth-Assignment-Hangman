@@ -34,7 +34,6 @@ public class HangmanController extends Application {
     private Game game = new Game();
     private String name;
     private Thread thread;
-    private ExecutorService pool = Executors.newFixedThreadPool(1);
     private Account account;
     @FXML
     Label timeLabel;
@@ -44,10 +43,8 @@ public class HangmanController extends Application {
         this.account = account;
         this.HP = 10;
         TimeCal timeCal = new TimeCal(timeLabel);
-//        thread.interrupt();
-//        thread = new Thread(timeCal);
-//        thread.start();
-        pool.execute(timeCal);
+        thread = new Thread(timeCal);
+        thread.start();
         setWords();
     }
     @FXML
@@ -185,7 +182,7 @@ public class HangmanController extends Application {
     @FXML
     Rectangle background;
     public void statue(boolean state){
-        pool.shutdown();
+        thread.interrupt();
         if(state) {
             stateLabel.setText("YOU WON");
         }else{

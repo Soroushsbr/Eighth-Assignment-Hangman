@@ -86,8 +86,9 @@ public class LoginMenu {
         //made a new account in database
         Account account = new Account(name , username , password);
         //add to database
-        databaseManager.newAccount(account);
-        changeScene(event, account);
+        if(databaseManager.newAccount(account)) {
+            changeScene(event, account);
+        }
     }
 
 }
