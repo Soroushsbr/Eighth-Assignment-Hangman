@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="back" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="753.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hangman.MenuController">
+   <children>
+      <Pane prefHeight="753.0" prefWidth="527.0" />
+      <Button layoutX="161.0" layoutY="213.0" mnemonicParsing="false" onAction="#play" prefHeight="52.0" prefWidth="206.0" style="-fx-background-radius: 20; -fx-background-insets: 1; -fx-background-color: transparent; -fx-border-radius: 20; -fx-border-color: white;" text="Play" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Button>
+      <Button layoutX="161.0" layoutY="325.0" mnemonicParsing="false" onAction="#leaderboard" prefHeight="52.0" prefWidth="206.0" style="-fx-background-radius: 20; -fx-background-insets: 1; -fx-background-color: transparent; -fx-border-radius: 20; -fx-border-color: white;" text="LeaderBoard" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Button>
+      <Button layoutX="161.0" layoutY="436.0" mnemonicParsing="false" onAction="#exit" prefHeight="52.0" prefWidth="206.0" style="-fx-background-radius: 20; -fx-background-insets: 1; -fx-background-color: transparent; -fx-border-radius: 20; -fx-border-color: white;" text="Exit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Button>
+      <Label layoutX="166.0" layoutY="76.0" text="HangMan" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="45.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="backgroundChoseDiff" arcHeight="5.0" arcWidth="5.0" height="753.0" opacity="0.2" stroke="BLACK" strokeType="INSIDE" visible="false" width="527.0" />
+      <Pane fx:id="choseDiffPane" layoutX="113.0" layoutY="167.0" prefHeight="369.0" prefWidth="301.0" style="-fx-background-radius: 10; -fx-background-color: transparent;" visible="false">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="369.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="301.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.11999999731779099" green="0.27085715532302856" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.924691379070282" green="0.43518519401550293" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Button layoutX="156.0" layoutY="154.0" mnemonicParsing="false" onAction="#animalBtn" prefHeight="36.0" prefWidth="116.0" style="-fx-background-insets: 1; -fx-background-radius: 20; -fx-border-color: 20; -fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: white;" text="Animals" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Hyperlink layoutX="276.0" layoutY="-4.0" onAction="#exitPlay" prefHeight="36.0" prefWidth="22.0" text="x" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Hyperlink>
+            <Button layoutX="30.0" layoutY="154.0" mnemonicParsing="false" onAction="#foodBtn" prefHeight="36.0" prefWidth="116.0" style="-fx-background-insets: 1; -fx-background-radius: 20; -fx-border-color: 20; -fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: white;" text="Food" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="156.0" layoutY="226.0" mnemonicParsing="false" onAction="#colorBtn" prefHeight="36.0" prefWidth="116.0" style="-fx-background-insets: 1; -fx-background-radius: 20; -fx-border-color: 20; -fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: white;" text="Colors" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="30.0" layoutY="226.0" mnemonicParsing="false" onAction="#clothesBtn" prefHeight="36.0" prefWidth="116.0" style="-fx-background-insets: 1; -fx-background-radius: 20; -fx-border-color: 20; -fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: white;" text="Clothes" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="88.0" layoutY="78.0" mnemonicParsing="false" onAction="#randomBtn" prefHeight="36.0" prefWidth="116.0" style="-fx-background-insets: 1; -fx-background-radius: 20; -fx-border-color: 20; -fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: white;" text="Random" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="leaderboardPane" layoutX="34.0" layoutY="209.0" prefHeight="285.0" prefWidth="460.0" visible="false">
+         <children>
+            <Rectangle arcHeight="30.0" arcWidth="30.0" height="285.0" stroke="WHITE" strokeType="INSIDE" width="460.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="1.0" green="0.11999999731779099" blue="0.11999999731779099" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.8947368264198303" blue="0.5368421077728271" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <ScrollPane layoutX="21.0" layoutY="66.0" prefHeight="205.0" prefWidth="418.0" style="-fx-background-color: transparent;">
+               <content>
+                  <VBox fx:id="leaderboardBox" alignment="TOP_CENTER" prefHeight="201.0" prefWidth="415.0" />
+               </content>
+            </ScrollPane>
+            <Label alignment="CENTER" layoutX="85.0" layoutY="8.0" prefHeight="17.0" prefWidth="290.0" text="🏆 Leaderboard 🏆" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Hyperlink layoutX="435.0" layoutY="-5.0" onAction="#exitLeaderboard" text="x" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Hyperlink>
+            <Label layoutX="66.0" layoutY="40.0" prefHeight="17.0" prefWidth="328.0" text="Username   ||   Word   ||   Wrong Guesses   ||   Time   ||   State" textFill="WHITE" />
+         </children>
+      </Pane>
+   </children>
+</Pane>
